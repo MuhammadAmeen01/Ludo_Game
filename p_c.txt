@@ -1,0 +1,217 @@
+void PrintableKeys(unsigned char key, int x, int y);
+void *main_thread(void *ptr);
+int check_save_stop(int x, int y);
+void blue_collision();
+void red_collision();
+void yellow_collision();
+void green_collision();
+int diceroll();
+int check_save_stop(int x, int y);
+
+MoveRed(int which_player, int value) //function will find the 
+                                     //coardinate according to the dice value and will place it.
+{
+  
+  if which_player==1
+    then
+    //red token1
+  if which_player==2
+    then
+    //red token2
+  if which_player==3
+    then
+    //red token2
+  if which_player==4
+    then
+    //red token2
+
+}
+MoveBlue(int which_player, int value)//function will find the 
+                                     //coardinate according to the dice value and will place it.
+{
+  if which_player==1
+    then
+    //blue token1
+  if which_player==2
+    then
+    //blue token2
+  if which_player==3
+    then
+    //blue token3
+  if which_player==4
+    then
+    /blue token4
+
+}
+MoveYellow(int which_player, int value)//function will find the 
+                                     //coardinate according to the dice value and will place it.
+{
+  if which_player==1
+    then
+    //yellow token1
+  if which_player==2
+    then
+    //yellow token2
+  if which_player==3
+    then
+    //yellow token3
+  if which_player==4
+    then
+    //yellow token4
+
+
+}
+
+MoveGreen(int which_player, int value)//function will find the 
+                                     //coardinate according to the dice value and will place it.
+{
+  if which_player==1
+    then
+    //green token1
+  if which_player==2
+    then
+    //green token2
+  if which_player==3
+    then
+    //green token2
+  if which_player==4
+    then
+    //green token2
+
+}
+
+
+
+int check_redwin()
+{
+
+if redpath1<57 && redpath2<57 && redpath3<57 && redpath4<57
+then 
+return 1
+else
+return 0
+}
+
+
+int check_greenwin();
+{
+if greenpath1<57 && greenpath2<57 && greenpath3<57 && greenpath4<57
+then 
+return 1
+else
+return 0
+
+}
+int check_bluewin();
+{
+if bluepath1<57 && bluepath2<57 && bluepath3<57 && bluepath4<57
+then 
+return 1
+else
+return 0
+
+}
+
+int check_yellowwin();
+{
+if yellowpath1<57 && yellowpath2<57 && yellowpath3<57 && yellowpath4<57
+then 
+return 1
+else
+return 0
+
+}
+
+
+
+
+void *go_green(void *p)
+{
+sem_wait(&sem3); //semaphores implementation 
+if check_redwin()==1
+then
+diceroll();
+PrintableKeys(unsigned char key, int x, int y);
+MoveGreen();
+
+   if check_save(x,y)==1
+   then
+   green_collision();
+sem_wait(sem);
+}
+
+
+void *go_yellow(void *p)
+{
+sem_wait(&sem2); //semaphores implementation 
+if check_yellowwin()==1
+then
+diceroll();
+PrintableKeys(unsigned char key, int x, int y); //will return user pressed key and pass it to move funtion
+MoveYellow();
+   if check_save(x,y)==1
+   then
+   yellowcollision();
+sem_post(&sem3);
+}
+
+
+
+void *go_blue(void *p)
+{
+sem_wait(&sem1) //semaphores implementation 
+if check_bluewin()==1
+then
+diceroll();
+PrintableKeys(unsigned char key, int x, int y); //will return user pressed key and pass it to move funtion
+MoveBlue();
+   if check_save(x,y)==1
+   then
+   blue_collision();
+sem_post(&sem2);
+}
+
+
+void *go_red(void *p)
+{
+
+sem_wait(&sem); //semaphores implementation 
+if check_redwin()==1
+then
+diceroll();
+PrintableKeys(unsigned char key, int x, int y);//will return user pressed key and pass it to move funtion
+MoveRed();
+if check_save(x,y)==1
+   then
+   red_collision();
+
+sem_post(&sem1);
+}
+
+
+
+void *main_thread(*p)
+{
+//thread creation
+pthread_create(go_read);
+pthread_create(go_blue);
+pthread_create(go_green);
+pthread_create(go_yellow);
+
+}
+glut_display()
+{
+//this function will move all players token, because it can be called again and again.
+if space_check==true  //game will start with space key
+then
+pthread_create(main_thread);
+ 
+}
+
+
+int main()
+{
+
+glut_display();
+
+}
